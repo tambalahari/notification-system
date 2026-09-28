@@ -12,6 +12,7 @@ const queues = {
   email: new Queue('email', { connection: redis, defaultJobOptions: jobOptions }),
   push: new Queue('push', { connection: redis, defaultJobOptions: jobOptions }),
   sms: new Queue('sms', { connection: redis, defaultJobOptions: jobOptions }),
+  inapp: new Queue('inapp', { connection: redis, defaultJobOptions: jobOptions }),
 };
 
 module.exports = queues;

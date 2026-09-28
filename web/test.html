@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Notification test</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 480px; margin: 40px auto; }
+    h2 { display: flex; justify-content: space-between; align-items: center; }
+    #badge { background: #e53935; color: #fff; border-radius: 12px; padding: 2px 10px; font-size: 14px; }
+    .item { border: 1px solid #ddd; border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; }
+    .item b { display: block; margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <h2>Notifications for user 1 <span id="badge">0</span></h2>
+  <div id="list"></div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script>
+    const socket = io('http://localhost:3000', { query: { userId: 1 } });
+    let count = 0;
+
+    socket.on('notification', (n) => {
+      count++;
+      document.getElementById('badge').textContent = count;
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = '<b>' + n.title + '</b>' + n.body;
+      document.getElementById('list').prepend(div);
+    });
+  </script>
+</body>
+</html>
